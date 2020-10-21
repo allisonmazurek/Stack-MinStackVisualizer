@@ -21,25 +21,47 @@ public class StackVisualizer implements Runnable {
             g.setColor(Color.RED);
             int h = 0;
 
-            int[] arrayStack =  stack.getStackArray();
-            int[] arrayMinStack =  stack.getMinStackArray();
+            if (stack == null) {
+                h = (this.getHeight() - 25);
+                g.drawString("Minimum# in Stack: ", 3 * this.getWidth() / 4 - 70, 20);
 
-            g.drawString("Minimum# in Stack: " + stack.min, 3 * this.getWidth()/4 - 70,20);
-
-            g.drawString("Stack:", this.getWidth()/4 - 50,this.getHeight() - 10);
-            for (int i = 0; i < stack.size; i++) {
-                h = (this.getHeight() - 25) - (i * 20) - (i * 10);
+                g.drawString("MinStack:", 3 * this.getWidth() / 4 - 70, this.getHeight() - 10);
                 g.drawRect(this.getWidth() / 4, h, 100, 20);
-                g.drawString(String.valueOf(arrayStack[i]), this.getWidth() / 4 + 10, h + 15);
+                g.drawString("null", this.getWidth() / 4 + 10, h + 15);
                 g.drawLine(this.getWidth() / 4 + 50, h, this.getWidth() / 4 + 50, h - 10);
-            }
 
-            g.drawString("MinStack:", 3 * this.getWidth()/4 - 70,this.getHeight() - 10);
-            for (int i = 0; i < stack.minStackSize; i++) {
-                h = (this.getHeight() - 25) - (i * 20) - (i * 10);
+
+                g.drawString("Stack:", this.getWidth() / 4 - 50, this.getHeight() - 10);
                 g.drawRect(3 * this.getWidth() / 4, h, 100, 20);
-                g.drawString(String.valueOf(arrayMinStack[i]), 3 * this.getWidth() / 4 + 10, h + 15);
+                g.drawString("null", 3 * this.getWidth() / 4 + 10, h + 15);
                 g.drawLine(3 * this.getWidth() / 4 + 50, h, 3 * this.getWidth() / 4 + 50, h - 10);
+            } else {
+
+                int[] arrayStack = stack.getStackArray();
+                int[] arrayMinStack = stack.getMinStackArray();
+
+                g.drawString("Minimum# in Stack: " + stack.min, 3 * this.getWidth() / 4 - 70, 20);
+
+                g.drawString("Stack:", this.getWidth() / 4 - 50, this.getHeight() - 10);
+                if (stack.size >= 1) {
+                    for (int i = 0; i < stack.size; i++) {
+                        h = (this.getHeight() - 25) - (i * 20) - (i * 10);
+                        g.drawRect(this.getWidth() / 4, h, 100, 20);
+                        g.drawString(String.valueOf(arrayStack[i]), this.getWidth() / 4 + 10, h + 15);
+                        g.drawLine(this.getWidth() / 4 + 50, h, this.getWidth() / 4 + 50, h - 10);
+                    }
+                }
+
+
+                g.drawString("MinStack:", 3 * this.getWidth() / 4 - 70, this.getHeight() - 10);
+                if (stack.minStackSize >= 1) {
+                    for (int i = 0; i < stack.minStackSize; i++) {
+                        h = (this.getHeight() - 25) - (i * 20) - (i * 10);
+                        g.drawRect(3 * this.getWidth() / 4, h, 100, 20);
+                        g.drawString(String.valueOf(arrayMinStack[i]), 3 * this.getWidth() / 4 + 10, h + 15);
+                        g.drawLine(3 * this.getWidth() / 4 + 50, h, 3 * this.getWidth() / 4 + 50, h - 10);
+                    }
+                }
             }
         }
 
@@ -57,6 +79,7 @@ public class StackVisualizer implements Runnable {
         public void actionPerformed(final ActionEvent e) {
             if (stack == null){
                 stack = new MyStack();
+                myCanvas.repaint();
             }
 
             stack.push(Integer.parseInt(NumberTextField.getText()));
@@ -76,11 +99,11 @@ public class StackVisualizer implements Runnable {
 
         @Override
         public void actionPerformed(final ActionEvent e) {
-            if (stack == null){
-                stack = new MyStack();
-            }
 
-            if (stack.head != null) stack.pop();
+            if (stack.size == 1){
+                stack = null;
+            }
+            else if (stack.head != null) stack.pop();
 
             myCanvas.repaint();
         }
@@ -107,20 +130,6 @@ public class StackVisualizer implements Runnable {
         btnPnl.add(NumberTextField);
 
     }
-
-    public int GetInfo(){
-        int getNum = 0;
-        String number = NumberTextField.getText();
-        try {
-            getNum = Integer.parseInt(number);
-        }
-        catch (Exception e){
-            System.out.println("Enter an Integer");
-        }
-
-        return getNum;
-    }
-
 
     @Override
     public void run() {
