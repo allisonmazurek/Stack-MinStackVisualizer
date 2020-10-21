@@ -63,26 +63,25 @@ public class MyStack {
     }
 
     public String toString(){
-        Node temp = head;
-        StringBuilder builder = new StringBuilder();
-        builder.append(" ");
-        while (temp != null){
-            builder.append(temp.data).append(" ");
-            temp = temp.next;
+        Node temp1 = head;
+        StringBuilder builder1 = new StringBuilder();
+        builder1.append(" ");
+        while (temp1 != null){
+            builder1.append(temp1.data).append(" ");
+            temp1 = temp1.next;
         }
-        return String.valueOf(builder);
+
+        Node temp2 = minStack.head;
+        StringBuilder builder2 = new StringBuilder();
+        builder2.append(" ");
+        while (temp2 != null){
+            builder2.append(temp2.data).append(" ");
+            temp2 = temp2.next;
+        }
+
+        return "STACK: " + String.valueOf(builder1) + "\nMINIMUM STACK: " + String.valueOf(builder2) + "\nMIMIMUM: " + this.min + "\n" ;
     }
 
-    public String getMinStack(){
-        Node temp = minStack.head;
-        StringBuilder builder = new StringBuilder();
-        builder.append(" ");
-        while (temp != null){
-            builder.append(temp.data).append(" ");
-            temp = temp.next;
-        }
-        return String.valueOf(builder);
-    }
 
 ///////////////FOR VISUALIZER ONLY//////////////////////////
     public int[] getStackArray(){
