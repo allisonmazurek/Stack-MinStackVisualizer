@@ -9,7 +9,6 @@ public class StackVisualizer implements Runnable {
     private final JTextField NumberTextField;
     private MyStack stack;
 
-
     public class MyCanvasPanel extends JPanel {
 
         public MyCanvasPanel() {
